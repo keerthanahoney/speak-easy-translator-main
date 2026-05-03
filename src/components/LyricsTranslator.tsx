@@ -207,8 +207,9 @@ export function LyricsTranslator() {
     });
 
     const cleanText = processed.map(l => l.text).join('\n');
-    const songContext = selectedSong ? `Song: ${selectedSong.trackName}, Artist: ${selectedSong.artistName}` : "";
-
+    const songContext = selectedSong 
+      ? `Song: "${selectedSong.trackName}", Artist: "${selectedSong.artistName}". IMPORTANT INSTRUCTION: The input text might be Romanized (written in English letters) but is actually in another language (like Tamil, Hindi, etc.). YOU MUST NOT TRANSLITERATE! Do not just rewrite the words in the target language's script. You MUST translate the actual MEANING of the words into ${targetLang}.` 
+      : `IMPORTANT INSTRUCTION: The input text may be Romanized. DO NOT TRANSLITERATE. You MUST translate the actual definition and meaning of the words into the target language.`;
     const performFallback = async (text: string): Promise<string | null> => {
       try {
         const sLang = sourceLang === 'auto' ? 'auto' : sourceLang;
